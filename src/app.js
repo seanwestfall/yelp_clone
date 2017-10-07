@@ -20,7 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        TEST TEST TEST
+        <h1>Environment: {__NODE_ENV__}</h1>
       </div>
     );
   }

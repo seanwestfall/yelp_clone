@@ -38,21 +38,30 @@ const defines =
     __NODE_ENV__: JSON.stringify(NODE_ENV)
   });
 
-/*
+var config = getConfig({
+  isDev: isDev,
+  in: join(src, 'app.js'),
+  out: dest,
+  clearBeforeBuild: true
+})
+
+module.exports = config;
+
 config.plugins = [
   new webpack.DefinePlugin(defines)
-].concat(config.plugins);*/
+].concat(config.plugins);
 
 const cssModulesNames = `${isDev ? '[path][name]__[local]__' : ''}[hash:base64:5]`;
 
 const matchCssLoaders = /(^|!)(css-loader)($|!)/;
 
+/*
+// TODO filter undefined, something todo with the array type
 const findLoader = (loaders, match) => {
-  const found = loaders.filter(l => l &&
+  const found = loaders_arr.filter(l => l &&
       l.loader && l.loader.match(match));
   return found ? found[0] : null;
-}
-// existing css loader
+}*/
 /*
 const cssloader =
   findLoader(config.module.loaders, matchCssLoaders);
@@ -77,14 +86,7 @@ config.module.loaders.push({
   test: /\.css$/,
   include: [modules],
   loader: 'style!css'
-})
-*/
-
-var config = getConfig({
-  in: join(__dirname, 'src/app.js'),
-  out: join(__dirname, 'dist'),
-  clearBeforeBuild: true
-})
+})*/
 
 /*
 config.postcss = [].concat([
@@ -93,4 +95,3 @@ config.postcss = [].concat([
   require('cssnano')({})
 ])*/
 
-module.exports = config;
