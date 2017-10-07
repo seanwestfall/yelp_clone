@@ -58,7 +58,7 @@ const matchCssLoaders = /(^|!)(css-loader)($|!)/;
 /*
 // TODO filter undefined, something todo with the array type
 const findLoader = (loaders, match) => {
-  const found = loaders_arr.filter(l => l &&
+  const found = loaders.filter(l => l &&
       l.loader && l.loader.match(match));
   return found ? found[0] : null;
 }*/
