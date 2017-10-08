@@ -14,12 +14,10 @@ const dest    = join(root, 'dist');
 const NODE_ENV = process.env.NODE_ENV;
 const isDev = NODE_ENV === 'development';
 
-const getConfig = require('hjs-webpack');
-
+// Environmental variables
 const dotenv = require('dotenv');
 
 const dotEnvVars = dotenv.config();
-
 const environmentEnv = dotenv.config({
   path: join(root, 'config', `${NODE_ENV}.config.js`),
   silent: true,
@@ -38,6 +36,7 @@ const defines =
     __NODE_ENV__: JSON.stringify(NODE_ENV)
   });
 
+const getConfig = require('hjs-webpack');
 var config = getConfig({
   isDev: isDev,
   in: join(src, 'app.js'),
@@ -51,11 +50,11 @@ config.plugins = [
   new webpack.DefinePlugin(defines)
 ].concat(config.plugins);
 
+/*
 const cssModulesNames = `${isDev ? '[path][name]__[local]__' : ''}[hash:base64:5]`;
 
 const matchCssLoaders = /(^|!)(css-loader)($|!)/;
 
-/*
 // TODO filter undefined, something todo with the array type
 const findLoader = (loaders, match) => {
   const found = loaders.filter(l => l &&
