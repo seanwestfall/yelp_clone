@@ -21,6 +21,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'tests.webpack.js'
     ],
 
     // list of files to exclude
@@ -52,7 +53,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
@@ -62,10 +63,18 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
+    reports: ['spec'],
+
+    preprocessors: {
+      'tests.webpack.js': ['webpack', 'sourcemap']
+    },
+
     plugins: [
       'karma-mocha',
       'karma-chai',
-      'karma-webpack'
+      'karma-webpack',
+      'karma-phantomjs-launcher',
+      'karma-spec-reporter'
     ]
   })
 }
