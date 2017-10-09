@@ -1,10 +1,14 @@
-require('babel-polyfill');
+//require('babel-polyfill');
 // some setup first
 
-var chai = require('chai');
-var chaiEnzyme = require('chai-enzyme');
+const NODE_ENV = process.env.NODE_ENV;
+const isDev  = NODE_ENV === 'development';
+const isTest = NODE_ENV === 'test';
 
-chai.use(chaiEnzyme())
+var chai = require('chai');
+//var chaiEnzyme = require('chai-enzyme');
+
+//chai.use(chaiEnzyme())
 
 var context = require.context('./src', true, /\.spec\.js$/);
 context.keys().forEach(context);

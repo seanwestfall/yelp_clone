@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "NODE_ENV=development ./node_modules/.bin/hjs-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test ./node_modules/karma/bin/karma start karma.conf.js",
+    "test:watch": "npm run test -- --watch"
   },
   "author": "Sean Westfall",
   "license": "ISC",
@@ -47,7 +48,8 @@
     "sinon": "^4.0.1",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "yargs": "^9.0.1"
   },
   "dependencies": {
     "create-react-class": "^15.6.2",

@@ -1,3 +1,5 @@
+require('babel-register');
+
 const webpack = require('webpack');
 const fs      = require('fs');
 const path    = require('path'),
@@ -13,6 +15,7 @@ const dest    = join(root, 'dist');
 
 const NODE_ENV = process.env.NODE_ENV;
 const isDev = NODE_ENV === 'development';
+const isTest = NODE_ENV === 'test';
 
 // Environmental variables
 const dotenv = require('dotenv');
@@ -22,7 +25,6 @@ const environmentEnv = dotenv.config({
   path: join(root, 'config', `${NODE_ENV}.config.js`),
   silent: true,
 });
-
 const envVariables =
   Object.assign({}, dotEnvVars, environmentEnv);
 
@@ -43,19 +45,57 @@ var config = getConfig({
   out: dest,
   clearBeforeBuild: true
 })
-
 module.exports = config;
 
 config.plugins = [
   new webpack.DefinePlugin(defines)
 ].concat(config.plugins);
 
+//console.log('config.plugins', config.plugins);
+
+if (isTest) {
+  config.externals = {
+    'react/lib/ReactContext': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react-addons-test-utils': 'react-dom' // <- added this
+  }
+
+  config.plugins = config.plugins.filter(p => {
+    const name = p.constructor.toString();
+    const fnName = name.match(/function (.*)\((.*\))/)
+
+    const idx = [
+      'DedupePlugin',
+      'UglifyJsPlugin'
+    ].indexOf(fnName[1]);
+    return idx < 0;
+  })
+} else {
+  config.externals = {
+    'react/lib/ReactContext': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/addons': true,
+    'react-addons-test-utils': 'react-dom' // <- added this
+  }
+}
+
+
+
+/*
+config.resolve.root = [src, modules]
+config.resolve.alias = {
+  'css': join(src, 'styles'),
+  'containers': join(src, 'containers'),
+  'components': join(src, 'components'),
+  'utils': join(src, 'utils')
+}*/
+
 /*
 const cssModulesNames = `${isDev ? '[path][name]__[local]__' : ''}[hash:base64:5]`;
 
 const matchCssLoaders = /(^|!)(css-loader)($|!)/;
 
-// TODO filter undefined, something todo with the array type
+// TODO: filter undefined, something todo with the array type
 const findLoader = (loaders, match) => {
   const found = loaders.filter(l => l &&
       l.loader && l.loader.match(match));
