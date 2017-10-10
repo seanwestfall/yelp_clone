@@ -54,8 +54,13 @@
   "dependencies": {
     "create-react-class": "^15.6.2",
     "font-awesome": "^4.7.0",
+    "google-maps-react": "^1.1.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-google-maps": "^8.3.5",
     "react-router": "^4.2.0"
+  },
+  "engines": {
+    "node": "7.9.0"
   }
 }

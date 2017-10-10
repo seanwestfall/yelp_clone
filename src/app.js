@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-//import {browserHistory, Router, Route} from 'react-router';
 import ReactDOM from 'react-dom';
 
 // React-Router-DOM
@@ -9,32 +8,29 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import makeRoutes from './routes';
 
+// Old React-Router
+//import {browserHistory, Router, Route} from 'react-router';
 
 import 'font-awesome/css/font-awesome.css';
 import styles from './styles.module.css';
 import './app.css';
 
-/*
-class Home extends React.Component {
-  render() {
-    return (<div>Hello world</div>)
-  }
-};*/
-/*
-class Home extends React.Component{
-  render() {
-    return (<div>Hello world</div>)
-  }
-}*/
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
-const Home = () => <h1>Home</h1>;
+/*
+const routes = makeRoutes();
 
-const routes = (
-  <Router>
-    <Route path="/" component={Home} />
-  </Router>
-)
+class myRoutes extends React.Component {
+  get content() {
+    return routes;
+  }
+  render() {
+    {this.content}
+  }
+}
+*/
 
 // test
 //import App from 'containers/App/App'
@@ -62,16 +58,63 @@ class App extends React.Component {
   }
 };
 */
-
-class App extends React.Component {
+/*
   static propTypes = {
     routes: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
   }
+ */
+/*
+import makeContainer from './views/Main/Container';
+const main = makeContainer();
+*/
 
+
+/*
+const gMapsContainer = () => (
+  GoogleApiWrapper({
+    apiKey: __GAPI_KEY__
+  })(Container)
+)*/
+
+const MapWithAMarker = withScriptjs(withGoogleMap(props =>
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+  >
+    <Marker
+      position={{ lat: -34.397, lng: 150.644 }}
+    />
+  </GoogleMap>
+));
+
+const Container = () => (
+  <div>
+    <span>Hello from the container</span>
+    <MapWithAMarker
+    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU0QabU3g9r9pEsun426MLgRAs5dADg1Q&v=3.exp&libraries=geometry,drawing,places"
+    loadingElement={<div style={{ height: `100%` }} />}
+    containerElement={<div style={{ height: `400px` }} />}
+    mapElement={<div style={{ height: `100%` }} />}
+    />
+  </div>
+)
+
+class App extends React.Component {
   // class getter
   get content() {
-    return (<div>HelloWorld!</div>)
+    return (
+      <Router>
+        <div>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+          </ul>
+
+          <hr/>
+          <Route exact path="/" component={Container}/>
+        </div>
+      </Router>
+    );
   }
 
   render() {
@@ -84,4 +127,4 @@ class App extends React.Component {
 };
 
 const mountNode = document.querySelector('#root');
-ReactDOM.render(<App history={browserHistory} />, mountNode);
+ReactDOM.render(<App />, mountNode);
