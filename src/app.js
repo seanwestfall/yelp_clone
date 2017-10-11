@@ -17,7 +17,10 @@ import 'font-awesome/css/font-awesome.css';
 import styles from './styles.module.css';
 import './app.css';
 
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import {searchNearby} from './utils/googleApiHelpers';
+
+import Header from './components/Header/Header';
 
 /*
 const routes = makeRoutes();
@@ -87,7 +90,7 @@ const MapWithAMarker = withScriptjs(withGoogleMap(props =>
     />
   </GoogleMap>
 ));
-
+/*
 const Container = () => (
   <div>
     <span>Hello from the container</span>
@@ -98,7 +101,57 @@ const Container = () => (
     mapElement={<div style={{ height: `100%` }} />}
     />
   </div>
-)
+)*/
+
+class Container extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      places: [],
+      pagination: null
+    }
+  }
+  onReady(mapProps, map) {
+    const {google} = this.props;
+    const opts = {
+      location: map.center,
+      radius: '500',
+      types: ['cafe']
+    }
+  searchNearby(google, map, opts)
+    .then((results, pagination) => {
+      this.setState({
+        places: results,
+        pagination
+      })
+      // We got some results and a pagination object
+    }).catch((status, result) => {
+      // There was an error
+    })
+  }
+  render() {
+    return (
+      <div>
+        <Header className={styles.topbar}/>
+        <MapWithAMarker
+          onReady={this.onReady.bind(this)}
+          google={this.props.google}
+          visible={false}
+
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU0QabU3g9r9pEsun426MLgRAs5dADg1Q&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        >
+        {this.state.places.map(place => {
+           return (<div key={place.id}>{place.name}</div>)
+        })}
+        </MapWithAMarker>
+      </div>
+    )
+  }
+}
 
 class App extends React.Component {
   // class getter
