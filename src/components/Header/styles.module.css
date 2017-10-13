@@ -1,4 +1,10 @@
 /* In `src/components/Header/styles.module.css `*/
+@import url("../../styles/base.css");
+/*
+:root {
+  --height: 80px;
+}*/
+
 .topbar {
   position: fixed;
   z-index: 10;
@@ -8,6 +14,9 @@
   width: 100%;
   padding: 0 25px;
   height: 80px;
+  /* --height: 80px; */
+  /* height: var(--height); */
+  /* line-height: var(--height); */
   line-height: 80px;
   color: #fff !important;
 

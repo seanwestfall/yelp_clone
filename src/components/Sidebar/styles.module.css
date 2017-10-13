@@ -1,0 +1,36 @@
+@import url("../../styles/base.css");
+@import url("../../styles/queries.css");
+
+.sidebar {
+  height: 100%;
+  /*top: var(--topbar-height); */
+  top: 20px; /* Refer to the top; should be 80px */
+  left: 0;
+  overflow: hidden;
+
+  position: relative;
+  /* flex: 1; */
+  z-index: 0;
+
+  flex-direction: column;
+  order: 2;
+  flex: 1;
+}
+
+.sidebar @media (--screen-phone-lg) {
+  display: block;
+  flex-direction: row;
+  order: 1;
+}
+
+.sidebar .heading {
+  flex: 1;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 0 10px;
+}
+
+.sidebar .heading h1 {
+  font-size: 1.8em;
+}
+

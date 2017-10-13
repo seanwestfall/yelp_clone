@@ -21,6 +21,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-map
 import {searchNearby} from './utils/googleApiHelpers';
 
 import Header from './components/Header/Header';
+import Sidebar from './components/Sidebar/Sidebar';
 
 /*
 const routes = makeRoutes();
@@ -108,7 +109,29 @@ class Container extends React.Component {
     super(props);
 
     this.state = {
-      places: [],
+      // my code -- Sean
+      places: [
+        {name: "Blue Bottle Coffee", rating: 0.9},
+        {name: "Starbucks", rating: 0.9},
+        {name: "Arlequin Cafe & Food-To-Go", rating: 0.9},
+        {name: "Chantal Guillon Macarons", rating: 0.9},
+        {name: "20th Century Cafe", rating: 0.9},
+        {name: "Christopher Elbow Chocolates", rating: 0.9},
+        {name: "Nina's Cafe", rating: 0.9},
+        {name: "Mercury Cafe", rating: 0.9},
+        {name: "Ritual Coffee Roasters", rating: 0.9},
+        {name: "Cumaica Coffee", rating: 0.9},
+        {name: "Talbot Café", rating: 0.9},
+        {name: "Javalencia", rating: 0.9},
+        {name: "Corridor Restaurant & Cafe", rating: 0.9},
+        {name: "Corridor Restaurant & Cafe", rating: 0.9},
+        {name: "KitTea Cat Cafe", rating: 0.9},
+        {name: "Peet's Coffee", rating: 0.9},
+        {name: "The Market", rating: 0.9},
+        {name: "Andersen Bakery", rating: 0.9},
+        {name: "Gaslamp Cafe", rating: 0.9},
+        {name: "Paramo Coffee Company", rating: 0.9},
+      ],
       pagination: null
     }
   }
@@ -130,24 +153,34 @@ class Container extends React.Component {
       // There was an error
     })
   }
+  onMarkerClick(item) {
+    const {place} = item; // place prop
+    const {push} = this.context.router;
+    push(`/map/detail/${place.place_id}`)
+  }
   render() {
+    let children = null;
+    if (this.props.children) {
+      // We have children in the Container component
+      children = React.cloneElement(
+        this.props.children,
+        {
+          google: this.props.google,
+          places: this.state.places,
+          loaded: this.props.loaded
+        })
+    }
     return (
       <div>
-        <Header className={styles.topbar}/>
-        <MapWithAMarker
-          onReady={this.onReady.bind(this)}
-          google={this.props.google}
-          visible={false}
-
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU0QabU3g9r9pEsun426MLgRAs5dADg1Q&v=3.exp&libraries=geometry,drawing,places"
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-        >
-        {this.state.places.map(place => {
-           return (<div key={place.id}>{place.name}</div>)
-        })}
-        </MapWithAMarker>
+        <Header/>
+        <Sidebar 
+          title={'Restaurants'}
+          places={this.state.places}
+        />
+        <div className={styles.content}>
+          {/* Setting children routes to be rendered*/}
+          {children}
+        </div>
       </div>
     )
   }
@@ -164,7 +197,13 @@ class App extends React.Component {
           </ul>
 
           <hr/>
-          <Route exact path="/" component={Container}/>
+          <Route exact path="/" component={Container}>
+            <Route path="map" component={Map} />
+            <Route path="detail/:placeId"
+              component={Detail} />
+
+            <IndexRoute component={Map} />
+          </Route>
         </div>
       </Router>
     );

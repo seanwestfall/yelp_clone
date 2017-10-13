@@ -11,6 +11,9 @@ export class Container extends React.Component {
     )
   }
 }
+Container.contextTypes = {
+  router: React.PropTypes.object
+}
 
 //export default Container
 
