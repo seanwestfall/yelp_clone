@@ -8,7 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import makeRoutes from './routes';
+//import makeRoutes from './routes';
 
 // Old React-Router
 //import {browserHistory, Router, Route} from 'react-router';
@@ -22,6 +22,8 @@ import {searchNearby} from './utils/googleApiHelpers';
 
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
+
+import Map from './views/Main/Map/Map';
 
 /*
 const routes = makeRoutes();
@@ -173,18 +175,42 @@ class Container extends React.Component {
     return (
       <div>
         <Header/>
-        <Sidebar 
-          title={'Restaurants'}
-          places={this.state.places}
-        />
-        <div className={styles.content}>
-          {/* Setting children routes to be rendered*/}
-          {children}
+        <div className={'main'} style={{display: `block`}}>
+          <Sidebar 
+            title={'Restaurants'}
+            places={this.state.places}
+            style={{width: `20%`, float: `left`}}
+          />
+          <div className={styles.content}
+               style={{width: `70%`, float: `left`}}
+          >
+              {/* Setting children routes to be rendered*/}
+              <Map />
+
+          </div>
         </div>
       </div>
     )
   }
 }
+
+/*
+class Map extends React.Component {
+  render() {
+    return (
+      <div>
+        MAP!
+      </div>
+    )
+  }
+}*/
+
+/*
+        //<div className={styles.content}>
+          //{[> Setting children routes to be rendered<]}
+          //{children}
+        //</div>
+ */
 
 class App extends React.Component {
   // class getter
@@ -194,16 +220,14 @@ class App extends React.Component {
         <div>
           <ul>
             <li><Link to="/">Home</Link></li>
+            <li><Link to="/map">Map</Link></li>
           </ul>
 
           <hr/>
-          <Route exact path="/" component={Container}>
-            <Route path="map" component={Map} />
-            <Route path="detail/:placeId"
-              component={Detail} />
-
-            <IndexRoute component={Map} />
-          </Route>
+          <Switch>
+            <Route exact path="/" component={Container} />
+            <Route path="/map" component={Map} />
+          </Switch>
         </div>
       </Router>
     );
@@ -217,6 +241,15 @@ class App extends React.Component {
     )
   }
 };
+
+/*
+            <Route path="map" component={Map} />
+            <Route path="detail/:placeId"
+              component={Detail} />
+
+            <IndexRoute component={Map} />
+ 
+ */
 
 const mountNode = document.querySelector('#root');
 ReactDOM.render(<App />, mountNode);

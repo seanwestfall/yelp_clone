@@ -4,7 +4,7 @@
 .sidebar {
   height: 100%;
   /*top: var(--topbar-height); */
-  top: 20px; /* Refer to the top; should be 80px */
+  /* top: 20px; /* Refer to the top; should be 80px */
   left: 0;
   overflow: hidden;
 
@@ -15,6 +15,11 @@
   flex-direction: column;
   order: 2;
   flex: 1;
+
+  /* Seans Code
+  width: 40%; */
+  float: left;
+  width: 30%;
 }
 
 .sidebar @media (--screen-phone-lg) {
