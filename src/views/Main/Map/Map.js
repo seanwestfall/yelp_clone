@@ -9,11 +9,36 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-map
 
 const MapWithAMarker = withScriptjs(withGoogleMap(props =>
   <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+    defaultZoom={12}
+    defaultCenter={{ lat: 37.775, lng: -122.419 }}
   >
+  {console.log(props)}
+  {props.children.places.map(place => {
+      return <Marker 
+                name={place.name}
+                place={place}
+                onClick={place.onMarkerClick.bind(this)}
+                position={place.location}
+              />
+
+    })
+  }
   </GoogleMap>
 ));
+
+/*
+  renderMarkers() {
+    console.log('renderMarkers', this);
+    if (!this.props.children.places) { return null; }
+    return this.props.children.places.map(place =>{
+      return <Marker key={place.id}
+                name={place.name}
+                place={place}
+                position={place.location}
+              />
+    })
+  }
+ */
 
 export class MapComponent extends React.Component {
   render() {
@@ -24,7 +49,9 @@ export class MapComponent extends React.Component {
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%`, width: `100%` }} />}
-        />
+        >
+        {this.props.children}
+        </MapWithAMarker>
       </div>
     )
   }

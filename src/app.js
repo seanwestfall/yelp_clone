@@ -111,31 +111,33 @@ class Container extends React.Component {
     super(props);
 
     this.state = {
-      // my code -- Sean
+      // my code -- Sean // dummy code
       places: [
-        {name: "Blue Bottle Coffee", rating: 0.9},
-        {name: "Starbucks", rating: 0.9},
-        {name: "Arlequin Cafe & Food-To-Go", rating: 0.9},
-        {name: "Chantal Guillon Macarons", rating: 0.9},
-        {name: "20th Century Cafe", rating: 0.9},
-        {name: "Christopher Elbow Chocolates", rating: 0.9},
-        {name: "Nina's Cafe", rating: 0.9},
-        {name: "Mercury Cafe", rating: 0.9},
-        {name: "Ritual Coffee Roasters", rating: 0.9},
-        {name: "Cumaica Coffee", rating: 0.9},
-        {name: "Talbot Café", rating: 0.9},
-        {name: "Javalencia", rating: 0.9},
-        {name: "Corridor Restaurant & Cafe", rating: 0.9},
-        {name: "Corridor Restaurant & Cafe", rating: 0.9},
-        {name: "KitTea Cat Cafe", rating: 0.9},
-        {name: "Peet's Coffee", rating: 0.9},
-        {name: "The Market", rating: 0.9},
-        {name: "Andersen Bakery", rating: 0.9},
-        {name: "Gaslamp Cafe", rating: 0.9},
-        {name: "Paramo Coffee Company", rating: 0.9},
+        {id: 0, name: "Blue Bottle Coffee", rating: 0.9, location: {lat: 37.7825, lng: -122.4078}},
+        {id: 1, name: "Starbucks", rating: 0.9, location: {lat: 37.751278, lng: -122.431660}},
+        {id: 2, name: "Arlequin Cafe & Food-To-Go", rating: 0.9, location: {lat: 37.777169, lng: -122.422616}},
+        {id: 3, name: "Chantal Guillon Macarons", rating: 0.9, location: {lat: 37.776600, lng: -122.423641}},
+        {id: 4, name: "20th Century Cafe", rating: 0.9, location: {lat: 37.774876, lng: -122.422378}},
+        {id: 5, name: "Christopher Elbow Chocolates", rating: 0.9, location: {lat: 37.776687, lng: -122.423115}},
+        {id: 6, name: "Nina's Cafe", rating: 0.9, location: {lat: 37.776011, lng: -122.421357}},
+        {id: 7, name: "Mercury Cafe", rating: 0.9, location: {lat: 37.774001, lng: -122.424294}},
+        {id: 8, name: "Ritual Coffee Roasters", rating: 0.9, location: {lat: 37.770560, lng: -122.443970}},
+        {id: 9, name: "Cumaica Coffee", rating: 0.9, location: {lat: 37.775538, lng: -122.415912}},
+        {id: 10, name: "Talbot Café", rating: 0.9, location: {lat: 37.930665, lng: -122.513707}},
+        {id: 11, name: "Javalencia", rating: 0.9, location: {lat: 37.758090, lng: -122.421550}},
+        {id: 12, name: "Corridor Restaurant & Cafe", rating: 0.9, location: {lat: 37.776731, lng: -122.419251}},
+        {id: 13, name: "Atlas Cafe", rating: 0.9, location: {lat: 37.758946, lng: -122.411462}},
+        {id: 14, name: "KitTea Cat Cafe", rating: 0.9, location: {lat: 37.773915, lng: -122.422184}},
+        {id: 15, name: "Peet's Coffee", rating: 0.9, location: {lat: 37.789664, lng: -122.434227}},
+        {id: 16, name: "The Market", rating: 0.9, location: {lat: 37.776769, lng: -122.416616}},
+        {id: 17, name: "Andersen Bakery", rating: 0.9, location: {lat: 37.785297, lng: -122.430673}},
+        {id: 18, name: "Gaslamp Cafe", rating: 0.9, location: {lat: 37.771790, lng: -122.416636}},
+        {id: 19, name: "Paramo Coffee Company", rating: 0.9, location: {lat: 37.776867, lng: -122.415313}},
       ],
       pagination: null
     }
+
+    console.log('this.state', this.state);
   }
   onReady(mapProps, map) {
     const {google} = this.props;
@@ -157,20 +159,30 @@ class Container extends React.Component {
   }
   onMarkerClick(item) {
     const {place} = item; // place prop
-    const {push} = this.context.router;
-    push(`/map/detail/${place.place_id}`)
+    console.log('this.context.router;', this.context.router);
+    //const {push} = this.context.router;
+    //push(`/map/detail/${place.place_id}`)
+    console.log('item', item);
+    alert(item.name);
   }
   render() {
-    let children = null;
-    if (this.props.children) {
+    let children = {};
+    console.log('container render this', this);
+    if (true) {
       // We have children in the Container component
-      children = React.cloneElement(
-        this.props.children,
-        {
-          google: this.props.google,
-          places: this.state.places,
-          loaded: this.props.loaded
-        })
+      var self = this;
+      this.state.places.map(item => {
+        item.onMarkerClick = self.onMarkerClick.bind(self)
+      });
+      children.places = this.state.places;
+      //children = React.cloneElement(
+        //this.props.children,
+        //{
+          //google: this.props.google,
+          //places: this.state.places,
+          //loaded: this.props.loaded
+        //})
+      console.log('children', children);
     }
     return (
       <div>
@@ -185,14 +197,19 @@ class Container extends React.Component {
                style={{width: `70%`, float: `left`}}
           >
               {/* Setting children routes to be rendered*/}
-              <Map />
+              <Map>
+              {children}
+              </Map>
 
           </div>
         </div>
       </div>
     )
   }
-}
+}/*
+Container.contextTypes = {
+  router: React.PropTypes.object
+}*/
 
 /*
 class Map extends React.Component {
