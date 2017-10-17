@@ -1,5 +1,5 @@
 import React, { PropTypes as T } from 'react'
-import {getDetails} from 'utils/googleApiHelpers'
+import {getDetails} from '../../../utils/googleApiHelpers'
 import styles from './styles.module.css'
 
 export class Detail extends React.Component {
@@ -63,7 +63,7 @@ export class Detail extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return (<div className={styles.wrapper})>
+      return (<div className={styles.wrapper}>
                 Loading...
               </div>);
     }

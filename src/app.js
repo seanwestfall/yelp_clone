@@ -24,6 +24,8 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 
 import Map from './views/Main/Map/Map';
+import Detail from './views/Main/Detail/Detail';
+
 
 /*
 const routes = makeRoutes();
@@ -163,6 +165,7 @@ class Container extends React.Component {
     //const {push} = this.context.router;
     //push(`/map/detail/${this.id}`)
     console.log('item', this);
+    this.self.props.history.push(`/map/detail/${this.item.id}`)
     //alert(this.name);
   }
   render() {
@@ -172,7 +175,7 @@ class Container extends React.Component {
       // We have children in the Container component
       var self = this;
       this.state.places.map(item => {
-        item.onMarkerClick = self.onMarkerClick.bind(item)
+        item.onMarkerClick = self.onMarkerClick.bind({item, self})
       });
       children.places = this.state.places;
       //children = React.cloneElement(
@@ -244,6 +247,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Container} />
             <Route path="/map" component={Map} />
+            <Route path="/map/detail/:placeId" component={Detail} />
           </Switch>
         </div>
       </Router>
