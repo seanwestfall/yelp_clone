@@ -157,13 +157,13 @@ class Container extends React.Component {
       // There was an error
     })
   }
-  onMarkerClick(item) {
-    const {place} = item; // place prop
-    console.log('this.context.router;', this.context.router);
+  onMarkerClick() {
+    const {place} = this; // place prop
+    //console.log('this.context.router;', this.context.router);
     //const {push} = this.context.router;
-    //push(`/map/detail/${place.place_id}`)
-    console.log('item', item);
-    alert(item.name);
+    //push(`/map/detail/${this.id}`)
+    console.log('item', this);
+    //alert(this.name);
   }
   render() {
     let children = {};
@@ -172,7 +172,7 @@ class Container extends React.Component {
       // We have children in the Container component
       var self = this;
       this.state.places.map(item => {
-        item.onMarkerClick = self.onMarkerClick.bind(self)
+        item.onMarkerClick = self.onMarkerClick.bind(item)
       });
       children.places = this.state.places;
       //children = React.cloneElement(

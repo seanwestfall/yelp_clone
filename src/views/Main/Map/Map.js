@@ -14,6 +14,7 @@ const MapWithAMarker = withScriptjs(withGoogleMap(props =>
   >
   {console.log(props)}
   {props.children.places.map(place => {
+      var self = this;
       return <Marker 
                 name={place.name}
                 place={place}
@@ -50,7 +51,7 @@ export class MapComponent extends React.Component {
         containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%`, width: `100%` }} />}
         >
-        {this.props.children}
+          {this.props.children}
         </MapWithAMarker>
       </div>
     )
