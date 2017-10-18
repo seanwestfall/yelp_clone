@@ -12,18 +12,24 @@ const MapWithAMarker = withScriptjs(withGoogleMap(props =>
     defaultZoom={12}
     defaultCenter={{ lat: 37.775, lng: -122.419 }}
   >
-  {console.log(props)}
   {props.children.places.map(place => {
       var self = this;
-      return <Marker 
+      return <Marker
                 name={place.name}
                 place={place}
                 onClick={place.onMarkerClick.bind(this)}
                 position={place.location}
               />
-
     })
   }
+  </GoogleMap>
+));
+
+const MapWithoutAMarker = withScriptjs(withGoogleMap(props =>
+  <GoogleMap
+    defaultZoom={12}
+    defaultCenter={{ lat: 37.775, lng: -122.419 }}
+  >
   </GoogleMap>
 ));
 
@@ -43,24 +49,32 @@ const MapWithAMarker = withScriptjs(withGoogleMap(props =>
 
 export class MapComponent extends React.Component {
   render() {
-    return (
-      <div className={styles.map}>
-        <MapWithAMarker
-        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU0QabU3g9r9pEsun426MLgRAs5dADg1Q&v=3.exp&libraries=geometry,drawing,places"
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px` }} />}
-        mapElement={<div style={{ height: `100%`, width: `100%` }} />}
-        >
-          {this.props.children}
-        </MapWithAMarker>
-      </div>
-    )
+    console.log(this.props);
+    if(true) {
+      return (
+        <div className={styles.map}>
+          <MapWithAMarker
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU0QabU3g9r9pEsun426MLgRAs5dADg1Q&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%`, width: `100%` }} />}
+          >
+            {this.props.children}
+          </MapWithAMarker>
+        </div>
+    )} else {
+      return (
+        <div className={styles.map}>
+          <MapWithoutAMarker
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU0QabU3g9r9pEsun426MLgRAs5dADg1Q&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%`, width: `100%` }} />}
+          />
+        </div>
+    )}
   }
 }
-
-/*
- 
- */
 
 /*
   renderChildren() {

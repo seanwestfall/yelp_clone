@@ -201,7 +201,7 @@ class Container extends React.Component {
           >
               {/* Setting children routes to be rendered*/}
               <Map>
-              {children}
+                {children}
               </Map>
 
           </div>
@@ -236,7 +236,7 @@ class App extends React.Component {
   // class getter
   get content() {
     return (
-      <Router>
+      <Router path="/" component={Container}>
         <div>
           <ul>
             <li><Link to="/">Home</Link></li>
@@ -245,7 +245,7 @@ class App extends React.Component {
 
           <hr/>
           <Switch>
-            <Route exact path="/" component={Container} />
+            <Route path="/" component={Container} />
             <Route path="/map" component={Map} />
             <Route path="/map/detail/:placeId" component={Detail} />
           </Switch>
