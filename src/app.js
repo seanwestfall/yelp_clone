@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -25,7 +27,6 @@ import Sidebar from './components/Sidebar/Sidebar';
 
 import Map from './views/Main/Map/Map';
 import Detail from './views/Main/Detail/Detail';
-
 
 /*
 const routes = makeRoutes();
@@ -86,14 +87,14 @@ const gMapsContainer = () => (
 )*/
 
 const MapWithAMarker = withScriptjs(withGoogleMap(props =>
-  <GoogleMap
+  `<GoogleMap
     defaultZoom={8}
     defaultCenter={{ lat: -34.397, lng: 150.644 }}
   >
     <Marker
       position={{ lat: -34.397, lng: 150.644 }}
     />
-  </GoogleMap>
+  </GoogleMap>`
 ));
 /*
 const Container = () => (
@@ -191,7 +192,7 @@ class Container extends React.Component {
       <div>
         <Header/>
         <div className={'main'} style={{display: `block`}}>
-          <Sidebar 
+          <Sidebar
             title={'Restaurants'}
             places={this.state.places}
             style={{width: `20%`, float: `left`}}
