@@ -110,8 +110,8 @@ const Container = () => (
 )*/
 
 class Container extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       // my code -- Sean // dummy code
@@ -197,15 +197,22 @@ class Container extends React.Component {
             places={this.state.places}
             style={{width: `20%`, float: `left`}}
           />
-          <div className={styles.content}
-               style={{width: `70%`, float: `left`}}
-          >
-              {/* Setting children routes to be rendered*/}
-              <Map>
-                {children}
-              </Map>
+            {/* Setting children routes to be rendered*/}
+            <Router>
+              <div className={styles.content}
+                   style={{width: `70%`, float: `left`}}
+              >
+                <Switch>
+                  <Route exact path="/">
+                    <Map>
+                      {children}
+                    </Map>
+                  </Route>
+                  <Route path="/map/detail/:placeId" component={Detail} />
+                </Switch>
+              </div>
+            </Router>
 
-          </div>
         </div>
       </div>
     )
@@ -247,8 +254,6 @@ class App extends React.Component {
           <hr/>
           <Switch>
             <Route path="/" component={Container} />
-            <Route path="/map" component={Map} />
-            <Route path="/map/detail/:placeId" component={Detail} />
           </Switch>
         </div>
       </Router>

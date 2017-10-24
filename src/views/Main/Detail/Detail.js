@@ -63,6 +63,7 @@ export class Detail extends React.Component {
 
   render() {
     if (this.state.loading) {
+      console.log("Called Detail.js");
       return (<div className={styles.wrapper}>
                 Loading...
               </div>);
