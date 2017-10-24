@@ -116,7 +116,7 @@ class Container extends React.Component {
     this.state = {
       // my code -- Sean // dummy code
       places: [
-        {id: 0, name: "Blue Bottle Coffee", rating: 0.9, location: {lat: 37.7825, lng: -122.4078}},
+        {id: 0, name: "Blue Bottle Coffee", rating: 0.9, location: {lat: 37.7825, lng: -122.4078}, photos: ["http://ww4.hdnux.com/photos/62/05/47/13130211/4/1024x1024.jpg", "https://www.domusweb.it/content/dam/domusweb/en/news/2017/06/01/new_blue_bottle/rmedium/domus-new-blue-bottle-08.jpg", "http://insidescoopsf.sfgate.com/wp-content/blogs.dir/732/files/blue-bottle-opens-in-market-square/fullsizerender23.jpg"]},
         {id: 1, name: "Starbucks", rating: 0.9, location: {lat: 37.751278, lng: -122.431660}},
         {id: 2, name: "Arlequin Cafe & Food-To-Go", rating: 0.9, location: {lat: 37.777169, lng: -122.422616}},
         {id: 3, name: "Chantal Guillon Macarons", rating: 0.9, location: {lat: 37.776600, lng: -122.423641}},
@@ -198,7 +198,6 @@ class Container extends React.Component {
             style={{width: `20%`, float: `left`}}
           />
             {/* Setting children routes to be rendered*/}
-            <Router>
               <div className={styles.content}
                    style={{width: `70%`, float: `left`}}
               >
@@ -211,7 +210,6 @@ class Container extends React.Component {
                   <Route path="/map/detail/:placeId" component={Detail} />
                 </Switch>
               </div>
-            </Router>
 
         </div>
       </div>
