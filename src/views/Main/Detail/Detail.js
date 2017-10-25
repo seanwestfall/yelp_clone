@@ -1,16 +1,23 @@
-import React, { PropTypes as T } from 'react'
-import {getDetails} from '../../../utils/googleApiHelpers'
-import styles from './styles.module.css'
+/*jshint esversion: 6 */
+
+import React, { PropTypes as T } from 'react';
+import {getDetails} from '../../../utils/googleApiHelpers';
+import styles from './styles.module.css';
 
 export class Detail extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
+
+    console.log('Detail props', props);
+    console.log('window.location', window.location);
+    const pathname = window.location.pathname;
+    const placeId = pathname.split('/').pop();
 
     this.state = {
       loading: true,
-      place: {id: 0, name: "Blue Bottle Coffee", rating: 0.9, location: {lat: 37.7825, lng: -122.4078}, photos: ["http://ww4.hdnux.com/photos/62/05/47/13130211/4/1024x1024.jpg", "https://www.domusweb.it/content/dam/domusweb/en/news/2017/06/01/new_blue_bottle/rmedium/domus-new-blue-bottle-08.jpg", "http://insidescoopsf.sfgate.com/wp-content/blogs.dir/732/files/blue-bottle-opens-in-market-square/fullsizerender23.jpg"]},
+      place: props.children.places[placeId],
       location: {}
-    }
+    };
   }
 
   componentDidMount() {
@@ -74,10 +81,17 @@ export class Detail extends React.Component {
     // We're no longer loading when we get here
     console.log('detail this', this);
     const {place} = this.state;
+
+    const backToMapStyle = {
+      float: 'right',
+      textAlign: 'right',
+      marginTop: '-43px'
+    };
     return (
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <h2>{place.name}</h2>
+          <span classname={'backToMap'} style={backToMapStyle}><a href='/'>Back to Map</a></span>
         </div>
         <div className={styles.details}>
           {this.renderPhotos(place)}

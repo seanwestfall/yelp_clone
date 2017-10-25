@@ -1,4 +1,4 @@
-@import url("../../../styles/base.css");
+/* @import url("../../../styles/base.css"); */
 
 .header {
   padding: 0 25px;
@@ -10,7 +10,7 @@
 
 .details {
   /* a little bit of padding */
-  padding: 0 var(--padding);
+  /*padding: 0 var(--padding); */
 }
 
 .details .photoStrip {
@@ -26,4 +26,10 @@
 
 .details .photoStrip img {
   margin: 0 1px;
+}
+
+.backToMap {
+  float: right;
+  text-align: right;
+  margin-top: -43px;
 }
