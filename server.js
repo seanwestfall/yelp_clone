@@ -10,3 +10,7 @@ app.use(express.static(__dirname + '/src/'));
 // Falback port will be 8080; basically for pre-production test in localhost
 // You will use $ npm run prod for this
 app.listen(process.env.PORT || 8080);
+
+var host = server.address().address
+
+console.log("nexusoptical listening at http://%s:%s", host, process.env.PORT || 8080);
