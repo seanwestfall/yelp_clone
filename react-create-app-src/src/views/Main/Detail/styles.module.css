@@ -1,0 +1,35 @@
+/* @import url("../../../styles/base.css"); */
+
+.header {
+  padding: 0 25px;
+}
+
+.header h2 {
+  font-size: 1.5em;
+}
+
+.details {
+  /* a little bit of padding */
+  /*padding: 0 var(--padding); */
+}
+
+.details .photoStrip {
+  flex: 1;
+  display: flex;
+  overflow: auto;
+}
+
+.details::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.details .photoStrip img {
+  margin: 0 1px;
+}
+
+.backToMap {
+  float: right;
+  text-align: right;
+  margin-top: -43px;
+}
