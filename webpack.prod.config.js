@@ -9,6 +9,9 @@ const webpack = require('webpack');
 // See: https://nodejs.org/docs/latest/api/path.html
 const path = require('path');
 
+const Copy = require('copy-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
   devtool: 'source-map',
   entry: [
@@ -39,20 +42,27 @@ module.exports = {
         test: /\.js[x]?$/,
         loaders: ['babel-loader'],
         exclude: path.join(__dirname, 'node_modules') },
-      { test: /\.css$/,
-        loaders: ['style-loader', {
-     loader: 'css-loader',
-     options: {
-       modules: true,
-     },
-   }],
-        include: path.join(__dirname, 'src', 'styles') },
+      {
+        // Transform our own .css files with PostCSS and CSS-modules
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader'],
+      }, {
+        // Do not transform vendor's CSS with CSS-modules
+        // The point is that they remain in global scope.
+        // Since we require these CSS files in our JS or CSS files,
+        // they will be a part of our compilation either way.
+        // So, no need for ExtractTextPlugin here.
+        test: /\.css$/,
+        include: /node_modules/,
+        use: ['style-loader', 'css-loader'],
+      },
       { test: /\.png$/,
-        loader: 'file' },
+        loader: 'file-loader' },
       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        loader: 'file'},
+        loader: 'file-loader'},
       { test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-        loader: 'url?limit=100000&name=[name].[ext]'
+        loader: 'url-loader?limit=100000'
         }
         // I am using SASS as Transpiler for style sheets
       //{test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"]},
@@ -65,13 +75,19 @@ module.exports = {
       minimize: true,
       compress: {
         warnings: false
-      }
+      },
+      sourceMap: true
     }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
-    })
+    }),
+    //new Copy([
+      //{ from: './node_modules/font-awesome/fonts', to: 'fonts' },
+      //{ from: './node_modules/font-awesome/css/font-awesome.min.css' },
+    //]),
+    //new ExtractTextPlugin('style.css')
    /*
     new webpack.DefinePlugin({
       'process.env': {

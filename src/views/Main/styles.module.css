@@ -8,19 +8,16 @@
   -webkit-box-orient: horizontal;
   -o-box-orient: horizontal;
 
-  /* Added these rules */
   flex-direction: column;
   flex: 1;
 }
 
 .wrapper @media (--screen-phone-lg) {
-  /* applied when the screen is larger */
   flex-direction: column;
 }
 
 .content {
   position: relative;
-  /* top: var(--topbar-height); */
   top: 20px;
   left: 0;
 

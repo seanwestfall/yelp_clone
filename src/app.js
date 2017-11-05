@@ -15,7 +15,7 @@ import {
 // Old React-Router
 //import {browserHistory, Router, Route} from 'react-router';
 
-import 'font-awesome/css/font-awesome.css';
+//import 'font-awesome/css/font-awesome.css';
 import styles from './styles.module.css';
 import './app.css';
 

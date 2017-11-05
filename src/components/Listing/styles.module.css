@@ -17,11 +17,8 @@
 
 .item h1 {
     flex: 2;
-    font-size: 1em !important; /* Stolen from the examples */
-    /*&:hover {
-      color: $highlight;
-    }*/
-  }
+    font-size: 1em !important; 
+}
 
 .item h1:hover {
   color: #48b5e9;
