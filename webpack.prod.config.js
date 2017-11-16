@@ -41,7 +41,8 @@ module.exports = {
       {
         test: /\.js[x]?$/,
         loaders: ['babel-loader'],
-        exclude: path.join(__dirname, 'node_modules') },
+        exclude: path.join(__dirname, 'node_modules'),
+      },
       {
         // Transform our own .css files with PostCSS and CSS-modules
         test: /\.css$/,
