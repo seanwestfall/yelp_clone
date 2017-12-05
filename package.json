@@ -68,11 +68,11 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-google-maps": "^8.3.5",
-    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-
-    "jshint": "2.9.5"
+    "jshint": "2.9.5",
+    "flow-bin": "0.59.0"
   },
   "engines": {
     "node": "7.9.0"

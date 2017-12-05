@@ -33,3 +33,10 @@
   font-size: 1.8em;
 }
 
+.sidebar input {
+  flex: 1;
+  width: 100%;
+  margin: 0 10px;
+  margin-left: 10px;
+}
+

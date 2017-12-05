@@ -295,5 +295,5 @@ class App extends React.Component {
  
  */
 
-const mountNode = document.querySelector('#root');
+const mountNode = document.querySelector('#main');
 ReactDOM.render(<App />, mountNode);
