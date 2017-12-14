@@ -13,7 +13,7 @@
   },
   "author": "Sean Westfall",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "autoprefixer": "^7.1.5",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
@@ -56,9 +56,7 @@
     "url-loader": "^0.6.2",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0",
-    "yargs": "^9.0.1"
-  },
-  "dependencies": {
+    "yargs": "^9.0.1",
     "classnames": "^2.2.5",
     "create-react-class": "^15.6.2",
     "express": "^4.16.2",
