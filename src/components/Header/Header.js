@@ -9,7 +9,7 @@ export class Header extends React.Component {
       <div className={"topbar"}>
         <a href="/"><h1>Yelp</h1></a>
         <section>
-          Fullstack.io
+          {/* Fullstack.io */}
         </section>
       </div>
     )
